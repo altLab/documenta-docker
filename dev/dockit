@@ -28,6 +28,7 @@ CONTENTDIR=${DOCDIR}/content
 case "$1" in
 
 	setup) 
+		echo "Setting up documenta development environment in ./repo"
 		sudo docker build -t documenta .
 		rm -rf $DOCDIR
 	        git clone https://github.com/altlab/documenta-phile-cms.git $DOCDIR
@@ -37,10 +38,12 @@ case "$1" in
 		
 		;;
 	start)
+		echo "Starting development container. Check http://localhost/d/"
 		sudo docker run -d --name documenta -p 80:80 -v ${DOCDIR}:/var/www/html/d documenta		
 		;;
 
 	stop)
+		echo "Stopping development container"
 		sudo docker stop documenta
 		sudo docker rm documenta
 		sudo rm -rf ${CACHEDIR}/*
