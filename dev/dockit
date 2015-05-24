@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# dockit - Simple script to set up a development environment for
+#          Documenta using Docker
+
+usage_info(){
+	cat <<EOF 	
+Usage:
+
+  dockit <command>
+
+Where command is one of:
+
+  setup   - create a development container and environment
+  start   - start the development container
+  stop    - stop the development container
+  logs    - check the server logs
+  inspect - open a shell inside the developemnt container 
+
+EOF
+
+}
+
+DOCDIR=${PWD}/repo
+CACHEDIR=${DOCDIR}/lib/cache
+CONTENTDIR=${DOCDIR}/content
+
+case "$1" in
+
+	setup) 
+		sudo docker build -t documenta .
+		rm -rf $DOCDIR
+	        git clone https://github.com/altlab/documenta-phile-cms.git $DOCDIR
+                sudo chown -R $USER:www-data $DOCDIR
+                sudo chmod -R g+w $CONTENTDIR 
+		sudo chmod 777 ${DOCDIR}/lib/cache
+		
+		;;
+	start)
+		sudo docker run -d --name documenta -p 80:80 -v ${DOCDIR}:/var/www/html/d documenta		
+		;;
+
+	stop)
+		sudo docker stop documenta
+		sudo docker rm documenta
+		sudo rm -rf ${CACHEDIR}/*
+		;;
+
+	inspect)
+		sudo docker exec -ti documenta /bin/bash
+		;;
+
+	logs) 
+		sudo docker logs documenta
+		;;
+	*)
+		usage_info
+		;;
+esac
