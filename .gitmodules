@@ -1,0 +1,3 @@
+[submodule "prod/documenta/phile-cms"]
+	path = prod/documenta/phile-cms
+	url = https://github.com/altlab/documenta-phile-cms.git
