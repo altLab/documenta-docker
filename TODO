@@ -1,0 +1,23 @@
+# Pending Tasks
+
+## finish prod environment
+
+The prod environment allows us to replicate the complex interplay of
+services in the production version of Documenta.
+
+ * make cron service properly update the links between frontend and backend
+ * preseed nextcloud image config file
+ * preseed database contents
+ * reproduce nextcloud's symlink bug
+
+## test a new prod environment with pydio
+
+## change prod environment to run from existing data dump
+
+## Update README file
+
+ * distinguish dev and prod environments
+ * write setup instructions for prod environment
+   * git modules
+   * data files
+
